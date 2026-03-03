@@ -16,6 +16,25 @@
 <template>
     <div  v-if="recipe">
         <h1>Recipe Details</h1>
+        <img :src="recipe.image" />
         <h1>{{ recipe.name }}</h1>
+        <p>Cuisine: {{ recipe.cuisine }}</p>
+        <p>Difficulty: {{ recipe.difficulty }}</p>
+        <p>Rating: {{ recipe.rating }}</p>
+        <p>Total Time: {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} mins</p>
+        <p>Servings: {{ recipe.servings }}</p>
+        <p>Ingredients:</p>
+
+        <ul>
+            <li v-for="ingredient in recipe.ingredients" :key="ingredient">
+                {{ ingredient }}
+            </li>
+        </ul>
+        <p>Instructions:</p>
+        <ol>
+            <li v-for="step in recipe.instructions" :key="step">
+                {{ step }}
+            </li>
+        </ol>
     </div>
 </template>
