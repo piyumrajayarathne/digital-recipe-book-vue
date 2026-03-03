@@ -4,4 +4,8 @@ export async function fetchRecipes():Promise<RecipeResponse>{
     const data = await response.json()
     return data;
 }
-
+export async function fetchRecipeById(id: number) {
+  const response = await fetch(`https://dummyjson.com/recipes/${id}`)
+  const data = await response.json()
+  return data
+}
