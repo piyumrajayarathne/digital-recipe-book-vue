@@ -2,8 +2,9 @@
     import type { Recipe } from '../types/recipe'
     import {ref,onMounted} from 'vue'
     import { fetchRecipeById } from '../services/recipeService'
-    import {useRoute} from 'vue-router'
+    import {useRoute,useRouter} from 'vue-router'
     const route = useRoute()
+    const router = useRouter()
     const id = Number(route.params.id as string)
 
     const recipe = ref<Recipe | null>(null)
@@ -12,9 +13,15 @@
         const data = await fetchRecipeById(id)
         recipe.value = data
     })
+    function goBack() {
+        router.push('/')
+    }
 </script>
 <template>
     <div  v-if="recipe">
+        <button @click="goBack">
+            ← Back to Recipes
+        </button>
         <h1>Recipe Details</h1>
         <img :src="recipe.image" />
         <h1>{{ recipe.name }}</h1>
@@ -38,3 +45,6 @@
         </ol>
     </div>
 </template>
+<style>
+
+</style>
