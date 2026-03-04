@@ -1,18 +1,31 @@
 <script setup lang ="ts">
+    import { useRouter } from 'vue-router'
     import {ref, onMounted} from 'vue'
     import {fetchRecipes} from '../services/recipeService' 
     import type {Recipe} from '../types/recipe'
     import RecipeCard from '@/components/RecipeCard.vue'
     const recipes = ref<Recipe[]>([])
+    const router = useRouter()
     onMounted(async() => {
         const data = await fetchRecipes()
         recipes.value = data.recipes
     })
-    
+    function logout() {
+        localStorage.removeItem('token')
+        router.push('/login')
+    }
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto px-12 pt-20 pb-16">
+  <div class="max-w-7xl mx-auto pl-12 pt-8 pb-16">
+
+    <div class="flex justify-end mb-6 mr-[-80px]">
+        <button
+            @click="logout"
+            class="px-4 py-2 bg-[#3d2f1f] text-white rounded-lg hover:bg-[#2c2116] transition">
+                Logout
+        </button>
+    </div>
 
     <div class="flex justify-center mb-8">
       <img
